@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Squad Intelligence Hub</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .page { display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;text-align:center;gap:20px; }
+  p { width:60%;font-size:1.2em;color:#00ffaa; }
+  .back-btn { background:#00ff66;border:none;padding:12px 40px;border-radius:10px;cursor:pointer;transition:0.3s; }
+  .back-btn:hover { background:black;color:#00ff80;transform:scale(1.1); }
+</style>
+</head>
+<body>
+  <div id="grid-bg"></div><div id="energy-bg"></div><div id="scan-overlay"></div>
+  <div class="page fade-in">
+    <h1>🧠 Intelligence Hub</h1>
+    <p>Central data analysis of all missions. View encrypted logs, agent activity, and threat intel in real time.</p>
+    <button class="back-btn" onclick="goBack()">⬅ Back to Dashboard</button>
+  </div>
+<script>
+function goBack(){document.body.classList.add("fade-out");setTimeout(()=>window.location.href="dashboard.html",800);}
+</script>
+</body>
+</html>

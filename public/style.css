@@ -1,0 +1,227 @@
+/* === ADVANCED CYBER TERMINAL DESIGN === */
+.center-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+.hidden {
+  display: none;
+}
+
+body {
+  background: radial-gradient(circle at center, #001a00 0%, #000 70%);
+  color: #22ff55;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  cursor: url('https://cur.cursors-4u.net/cursors/cur-2/cur104.cur'), auto;
+}
+
+/* Animated Glowing Grid Background */
+#grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 0, 0, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 0, 0.2) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -3;
+  animation: gridFlow 12s linear infinite;
+  opacity: 0.1;
+}
+
+@keyframes gridFlow {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 40px 40px, 40px 40px; }
+}
+
+/* Energy Core Glow Effect */
+#energy-bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,255,0,0.15) 0%, transparent 60%);
+  z-index: -2;
+  animation: energyPulse 4s ease-in-out infinite;
+}
+
+@keyframes energyPulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* Boot Text Animation */
+.boot-sequence {
+  margin-top: 18%;
+  font-size: 1.3em;
+  color: #1fff6a;
+  animation: flicker 1s infinite alternate;
+}
+
+/* Typing Effect */
+.boot-line {
+  margin: 12px 0;
+  animation: typing 2.5s steps(40, end) forwards;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #1aff5a;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Headings */
+h1 {
+  font-size: 3.5em;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 10px #00ff80,
+    0 0 30px #00ff80,
+    0 0 60px #00ff80;
+  animation: flickerText 2s infinite;
+}
+
+@keyframes flickerText {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
+}
+
+/* Input Field — Advanced Neon Aura */
+.glow-input {
+  padding: 15px 25px;
+  font-size: 1.1em;
+  border: 2px solid #00ff66;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.8);
+  color: #66ff99;
+  text-shadow: 0 0 10px #00ff80;
+  box-shadow:
+    0 0 15px #00ff66,
+    0 0 40px #00ff80,
+    0 0 80px #00ffaa,
+    inset 0 0 25px rgba(0,255,100,0.3);
+  transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(2px);
+}
+
+.glow-input:focus {
+  outline: none;
+  border-color: #00ffaa;
+  box-shadow:
+    0 0 25px #00ffaa,
+    0 0 70px #00ffaa,
+    0 0 120px #00ffaa,
+    inset 0 0 30px rgba(0,255,100,0.4);
+  color: #fff;
+  background-color: rgba(0, 30, 0, 0.9);
+}
+
+/* Button — High Energy Pulse */
+button {
+  margin-top: 25px;
+  padding: 12px 40px;
+  font-size: 1.1em;
+  background-color: #00ff55;
+  border: 2px solid #00ffaa;
+  border-radius: 10px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow:
+    0 0 20px #00ff80,
+    0 0 50px #00ff80,
+    0 0 100px #00ffaa;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #000;
+  color: #00ff80;
+  box-shadow:
+    0 0 30px #00ffaa,
+    0 0 80px #00ffaa,
+    0 0 160px #00ffaa;
+  transform: scale(1.1);
+}
+
+/* Access Granted Pulse */
+.access-granted {
+  font-size: 1.5em; /* slightly reduced from 2.5em for better balance */
+  color: #00ff6e;
+  font-weight: bold;
+  text-shadow:
+    0 0 10px #00ff80,
+    0 0 25px #00ffaa,
+    0 0 60px #00ffaa;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Glitch Effect — Enlarged & brighter */
+.glitch {
+  color: #ff3333;
+  font-size: 1.4rem; /* increased size */
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow:
+    0 0 5px #ff0000,
+    0 0 15px #ff0044,
+    0 0 30px #ff0022;
+  animation: glitch 0.25s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 2px #ff3333; }
+  50% { text-shadow: -2px -2px #ff0000; }
+  100% { text-shadow: 2px -2px #ff0000; }
+}
+
+/* Shake Effect */
+.shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+/* Scan-line overlay (subtle CRT effect) */
+#scan-overlay {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 0, 0.05) 0px,
+    rgba(0, 255, 0, 0.05) 2px,
+    transparent 3px,
+    transparent 4px
+  );
+  z-index: -1;
+  pointer-events: none;
+  animation: scanMove 2s linear infinite;
+}
+
+@keyframes scanMove {
+  0% { background-position-y: 0; }
+  100% { background-position-y: 8px; }
+}

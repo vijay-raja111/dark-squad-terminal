@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Squad Access Terminal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background Layers -->
+  <div id="grid-bg"></div>
+  <div id="energy-bg"></div>
+  <div id="scan-overlay"></div>
+
+  <!-- Booting Screen -->
+  <div class="center-wrapper" id="boot-screen">
+    <div class="boot-sequence">
+      <p class="boot-line">Initializing Neural Interface...</p>
+      <p class="boot-line">Loading Security Modules...</p>
+      <p class="boot-line">Establishing Connection to Mainframe...</p>
+      <p class="boot-line">Decrypting Access Keys...</p>
+      <p class="boot-line">System Status: <span class="access-granted">STABLE</span></p>
+    </div>
+  </div>
+
+  <!-- Step 1 — Member ID Page -->
+  <div class="center-wrapper hidden" id="member-section">
+    <h1>Dark Squad Access Verification</h1>
+    <input type="text" id="memberID" class="glow-input" placeholder="Enter Member ID" />
+    <button onclick="verifyMember()">Next</button>
+    <p id="memberMessage"></p>
+  </div>
+
+  <!-- Step 2 — Email + OTP Login -->
+  <div class="center-wrapper hidden" id="login-section">
+    <h1>Identity Verification</h1>
+    <input type="email" id="email" class="glow-input" placeholder="Enter your email" />
+    <button onclick="sendOTP()">Send OTP</button>
+    <div id="otp-section" class="hidden">
+      <input type="text" id="otp" class="glow-input" placeholder="Enter OTP" />
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    // Boot animation → Member ID page
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById("boot-screen").classList.add("hidden");
+        document.getElementById("member-section").classList.remove("hidden");
+      }, 4000);
+    };
+
+    // Step 1: Verify Member ID
+    function verifyMember() {
+      const id = document.getElementById("memberID").value.trim();
+      const msg = document.getElementById("memberMessage");
+
+      if (id === "") {
+        msg.innerHTML = "<span class='glitch'>⚠️ Enter your Member ID!</span>";
+        clearMessageAfterDelay(msg);
+        return;
+      }
+
+      // ✅ Accept only valid IDs
+      const validIDs = ["DS-001", "DS-092", "DS-120", "DS-094", "DS-112"];
+      if (!validIDs.includes(id)) {
+        msg.innerHTML = "<span class='glitch'>Invalid Member ID!</span>";
+        msg.style.fontSize = "1.5em"; // bigger text
+        clearMessageAfterDelay(msg);
+        return;
+      }
+
+      msg.innerHTML = "<span class='access-granted'>Member ID Verified!</span>";
+      msg.style.fontSize = "1.8em";
+      clearMessageAfterDelay(msg);
+
+      setTimeout(() => {
+        document.getElementById("member-section").classList.add("hidden");
+        document.getElementById("login-section").classList.remove("hidden");
+      }, 1200);
+    }
+
+    // Step 2: Send OTP
+    async function sendOTP() {
+      const email = document.getElementById("email").value.trim();
+      const msg = document.getElementById("message");
+
+      if (!email) {
+        msg.innerHTML = "<span class='glitch'>⚠️ Enter email!</span>";
+        clearMessageAfterDelay(msg);
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:4001/api/otp/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          msg.innerHTML = "<span class='access-granted'>📧 OTP Sent Successfully!</span>";
+          document.getElementById("otp-section").classList.remove("hidden");
+        } else {
+          msg.innerHTML = `<span class='glitch'>${data.error}</span>`;
+        }
+
+        clearMessageAfterDelay(msg);
+      } catch {
+        msg.innerHTML = "<span class='glitch'>⚠️ Server Error!</span>";
+        clearMessageAfterDelay(msg);
+      }
+    }
+
+    // Step 3: Verify OTP
+    async function verifyOTP() {
+      const email = document.getElementById("email").value.trim();
+      const otp = document.getElementById("otp").value.trim();
+      const msg = document.getElementById("message");
+
+      if (!otp) {
+        msg.innerHTML = "<span class='glitch'>⚠️ Enter OTP!</span>";
+        clearMessageAfterDelay(msg);
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:4001/api/otp/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, otp })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          msg.innerHTML = "<span class='access-granted'>🟢 Access Granted!</span>";
+          clearMessageAfterDelay(msg);
+          setTimeout(() => (window.location = "dashboard.html"), 1500);
+        } else {
+          msg.innerHTML = `<span class='glitch'>${data.error}</span>`;
+          clearMessageAfterDelay(msg);
+        }
+      } catch {
+        msg.innerHTML = "<span class='glitch'>⚠️ Server Error!</span>";
+        clearMessageAfterDelay(msg);
+      }
+    }
+
+    // Auto-clear messages after 10 seconds
+    function clearMessageAfterDelay(element) {
+      setTimeout(() => {
+        element.innerHTML = "";
+      }, 10000);
+    }
+  </script>
+</body>
+</html>

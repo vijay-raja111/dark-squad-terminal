@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Squad Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      gap: 25px;
+    }
+    .feature-btn {
+      width: 260px;
+      padding: 15px;
+      font-size: 1.1em;
+      background: #00ff66;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 15px #00ff66, 0 0 40px #00ffaa;
+      transition: all 0.3s ease-in-out;
+    }
+    .feature-btn:hover {
+      background: black;
+      color: #00ff80;
+      transform: scale(1.1);
+      box-shadow: 0 0 40px #00ffaa;
+    }
+    .fade-out { animation: fadeOut 0.8s forwards; }
+    @keyframes fadeOut { to { opacity: 0; transform: scale(0.9); } }
+  </style>
+</head>
+<body>
+  <div id="grid-bg"></div>
+  <div id="energy-bg"></div>
+  <div id="scan-overlay"></div>
+
+  <div class="dashboard-container" id="dash">
+    <h1>DARK SQUAD MAIN TERMINAL </h1>
+    <button class="feature-btn" onclick="goTo('feature 1.html')"> Chat Center</button>
+    <button class="feature-btn" onclick="goTo('feature 2.html')"> Operations Control</button>
+    <button class="feature-btn" onclick="goTo('feature 3.html')"> Intelligence Hub</button>
+  </div>
+
+  <script>
+    function goTo(page) {
+      const d = document.getElementById("dash");
+      d.classList.add("fade-out");
+      setTimeout(()=>window.location.href=page,800);
+    }
+  </script>
+</body>
+</html>
+

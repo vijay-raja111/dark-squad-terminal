@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Squad Operations</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .page { display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:20px; }
+  ul { list-style:none;padding:0;color:#00ff80;font-size:1.3em; }
+  li { margin:10px 0; }
+  .back-btn { background:#00ff66;border:none;padding:12px 40px;border-radius:10px;cursor:pointer;transition:0.3s; }
+  .back-btn:hover { background:black;color:#00ff80;transform:scale(1.1); }
+</style>
+</head>
+<body>
+  <div id="grid-bg"></div><div id="energy-bg"></div><div id="scan-overlay"></div>
+  <div class="page fade-in">
+    <h1>🚀 Operations Command Center</h1>
+    <ul>
+      <li>⚡ Recon Mission Planning</li>
+      <li>💣 Tactical Execution Logs</li>
+      <li>🛰 Drone Surveillance Data</li>
+    </ul>
+    <button class="back-btn" onclick="goBack()">⬅ Back to Dashboard</button>
+  </div>
+<script>
+function goBack(){document.body.classList.add("fade-out");setTimeout(()=>window.location.href="dashboard.html",800);}
+</script>
+</body>
+</html>
