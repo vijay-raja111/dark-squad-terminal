@@ -42,12 +42,20 @@ app.post("/api/otp/send", async (req, res) => {
   };
 
   try {
+    console.log('Attempting to send email with config:', {
+      user: process.env.EMAIL_USER ? 'Set' : 'Not set',
+      pass: process.env.EMAIL_PASS ? 'Set' : 'Not set'
+    });
     await transporter.sendMail(mailOptions);
     console.log(`✅ OTP ${otp} sent to ${email}`);
     res.json({ message: "OTP sent successfully" });
   } catch (err) {
-    console.error("❌ Failed to send email:", err);
-    res.status(500).json({ error: "Failed to send email" });
+    console.error("❌ Failed to send email. Error details:", {
+      message: err.message,
+      code: err.code,
+      command: err.command
+    });
+    res.status(500).json({ error: "Failed to send email: " + err.message });
   }
 });
 
