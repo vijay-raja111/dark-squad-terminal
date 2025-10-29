@@ -35,7 +35,7 @@ app.post("/api/otp/send", async (req, res) => {
   });
 
   const mailOptions = {
-    from: "Dark Squad Access <yourgmail@gmail.com>",
+    from: `Dark Squad Access <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "Your OTP for Dark Squad Access",
     text: `Your OTP is ${otp}. It expires in 2 minutes.`,
