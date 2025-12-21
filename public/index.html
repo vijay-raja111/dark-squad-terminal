@@ -94,7 +94,7 @@
       }
 
       try {
-        const res = await fetch("http://localhost:4001/api/otp/send", {
+  const res = await fetch("/api/otp/send", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email })
@@ -129,7 +129,7 @@
       }
 
       try {
-        const res = await fetch("http://localhost:4001/api/otp/verify", {
+  const res = await fetch("/api/otp/verify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, otp })

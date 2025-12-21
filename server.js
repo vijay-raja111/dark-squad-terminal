@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
+// Load .env in local development (Render provides env vars in production)
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -25,17 +27,23 @@ app.post("/api/otp/send", async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000);
   otpStorage[email] = otp;
 
-  // Configure mail transport
+  // Allow either EMAIL_USER or EMAIL (older .env) and ensure pass comes from EMAIL_PASS
+  const EMAIL_USER = process.env.EMAIL_USER || process.env.EMAIL;
+  const EMAIL_PASS = process.env.EMAIL_PASS;
+
+  // Configure mail transport using explicit SMTP settings (more reliable on some hosts)
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.EMAIL_USER || "vaaimaiyevellumm@gmail.com",
-      pass: process.env.EMAIL_PASS || "kuiv afpv bwbb liyu",
+      user: EMAIL_USER,
+      pass: EMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: `Dark Squad Access <${process.env.EMAIL_USER}>`,
+    from: `Dark Squad Access <${EMAIL_USER}>`,
     to: email,
     subject: "Your OTP for Dark Squad Access",
     text: `Your OTP is ${otp}. It expires in 2 minutes.`,
@@ -78,3 +86,9 @@ app.get("/api/test", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+
+
+
+
+
+
